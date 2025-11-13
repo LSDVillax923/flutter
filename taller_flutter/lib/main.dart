@@ -6,6 +6,7 @@ import 'package:taller_flutter/screens/login.dart';
 import 'package:taller_flutter/screens/register.dart';
 import 'package:taller_flutter/screens/reset_password.dart';
 import 'package:taller_flutter/screens/settings.dart';
+import 'package:taller_flutter/screens/profile.dart';
 
 void main() {
   runApp(const MainApp());
