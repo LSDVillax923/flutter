@@ -16,17 +16,40 @@ class BarReviews extends StatefulWidget {
 class _BarReviewsState extends State<BarReviews> {
   late final BarReviewsBloc _bloc;
 
+  int _currentIndex = 0; // 👈 índice del bottom navigation
+
   @override
   void initState() {
     super.initState();
     _bloc = BarReviewsBloc();
-    _bloc.add(LoadBarReviews('all')); 
+    _bloc.add(LoadBarReviews('all'));
   }
 
   @override
   void dispose() {
     _bloc.close();
     super.dispose();
+  }
+
+  void _onNavTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        // Home → BarReviews
+        context.go('/bar_reviews');
+        break;
+      case 1:
+        // Create → ajusta la ruta a la que tengas configurada
+        context.go('/create');
+        break;
+      case 2:
+        // Profile
+        context.go('/profile');
+        break;
+    }
   }
 
   @override
@@ -65,13 +88,32 @@ class _BarReviewsState extends State<BarReviews> {
                       },
                     ),
             ),
+
+            // 👇 BottomNavigationBar
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: _onNavTap,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add_circle_outline),
+                  label: 'Create',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+              ],
+            ),
           );
         },
       ),
     );
   }
 }
-
 
 /// Widget que muestra la información de una Review
 class ReviewCard extends StatelessWidget {
